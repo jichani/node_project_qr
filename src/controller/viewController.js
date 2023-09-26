@@ -10,21 +10,21 @@ export const introduceViewController = (req, res) => {
 };
 
 export const courseViewController = (req, res) => {
-  res.render("introduce");
+  res.render("course");
 };
 
 export const qrViewController = (req, res) => {
-  res.render("introduce");
+  res.render("qr");
 };
 
 export const profileViewController = (req, res) => {
-  res.render("introduce");
+  res.render("users");
 };
 
 export const joinViewController = (req, res) => {
-  res.render("introduce");
+  res.render("joinForm");
 };
 
 export const loginViewController = (req, res) => {
-  res.render("introduce");
+  res.render("loginForm");
 };
