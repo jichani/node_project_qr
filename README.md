@@ -91,3 +91,4 @@ npm install -D @babel/cli@7.17.10 @babel/core@7.17.8 @babel/node@7.16.8 @babel/p
 3. babel.config.json -> 빌드 설정 -> import 문법을 쓰고싶어서
 4. nodemon.json -> 개발 도중에 서버를 다시 키기 싫어서
 5. package.json에 스크립트 명령어를 지정해줌
+6. ejs 템플릿 엔진. 데이터를 가져오는 역할
