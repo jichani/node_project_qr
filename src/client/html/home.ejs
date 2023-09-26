@@ -8,7 +8,15 @@
 </head>
 
 <body>
-  <div style="background: blue;">dsadsa</div>
+  <!-- 변수를 사용하고 싶을 때는 <%= %> -->
+  <!-- 인클루드를 사용하고 싶을 때는 <%- %> -->
+  <!-- 자바스크립트를 사용하고 싶을 때는 <% %> -->
+  <%- include("./common") %>
+    <% for(let i=0; i < data.length; i++) { %>
+      <div style="background: pink; width: 100px; height: 100px;">
+        <%= data[i].name %>
+      </div>
+      <% } %>
 </body>
 
 </html>

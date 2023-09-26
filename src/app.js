@@ -16,8 +16,8 @@ app.get("/", (req, res) => {
   res.render("home", homeData);
 });
 
-app.get("/abc", (req, res) => {
-  res.send("abc로 들어왔습니다!!!");
+app.get("/introduce", (req, res) => {
+  res.render("introduce");
 });
 
 app.listen(8080, () => {
