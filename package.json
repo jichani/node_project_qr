@@ -4,6 +4,7 @@
   "description": "show kakao course",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "build": "babel app.js -d build"
   },
   "keywords": [],
