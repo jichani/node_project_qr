@@ -85,3 +85,9 @@ nodemon.json은 nodemon의 설정 파일이고 exec 속성은 nodemon이 파일 
 - https://codepen.io/dissimulate/pen/nYQrNP
 
 npm install -D @babel/cli@7.17.10 @babel/core@7.17.8 @babel/node@7.16.8 @babel/preset-env@7.16.11 nodemon
+
+1. npm init -> 패키지 구조 만듬
+2. 라이브러리 설치 -> express, babel nodemon
+3. babel.config.json -> 빌드 설정 -> import 문법을 쓰고싶어서
+4. nodemon.json -> 개발 도중에 서버를 다시 키기 싫어서
+5. package.json에 스크립트 명령어를 지정해줌
