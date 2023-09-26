@@ -7,10 +7,10 @@ const app = express();
 // express에게 ejs를 사용할 것이라고 선언
 app.set("view engine", "ejs");
 // 위치는 절대 주소를 지정하고 파일 위치를 잡는다.
-app.set("views", process.cwd() + "/src/")
+app.set("views", process.cwd() + "/src/client/html");
 
 app.get("/", (req, res) => {
-  res.send("루트로 들어왔습니다!!!");
+  res.render("a");
 });
 
 app.get("/abc", (req, res) => {
