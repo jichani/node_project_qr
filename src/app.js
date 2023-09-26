@@ -10,7 +10,10 @@ app.set("view engine", "ejs");
 app.set("views", process.cwd() + "/src/client/html");
 
 app.get("/", (req, res) => {
-  res.render("a");
+  const homeData = {
+    data: [{ name: "철수" }, { name: "영희" }, { name: "민수" },],
+  }
+  res.render("home", homeData);
 });
 
 app.get("/abc", (req, res) => {
