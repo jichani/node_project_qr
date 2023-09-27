@@ -11,7 +11,7 @@ export const getCourseList = async (req, res) => {
   LEFT JOIN users_course uc
   ON c.course_id = uc.course_id AND uc.user_id = ?`
   // 데이터 베이스에 보내는 것 [userID]를 첫번째 ?에 집어넣는다. because, sql injection을 막기 위해서
-  const courseList = await db.execute(QUERY, [userId]).then((result) => result[0]);
+  const courseList = await db.execute(QUERY, [1]).then((result) => result[0]);
 
   res.json(courseList);
 };
