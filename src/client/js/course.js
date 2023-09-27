@@ -1,5 +1,8 @@
 const locationMap = document.getElementById("location-map");
 let map;
+let isMapDrawn = false;
+let userLatitude;
+let userLongitude;
 
 // console.log(locationMap);
 
@@ -9,7 +12,7 @@ const drawMap = (latitude, longitude) => {
     level: 5,
   };
   map = new kakao.maps.Map(locationMap, options);
-  map.setZoomable(false);
+  // map.setZoomable(false);
 };
 
 const addCourseMarker = () => {
@@ -36,5 +39,22 @@ const addCourseMarker = () => {
   })
 };
 
-drawMap(35.79840347377205, 128.4930813305637);
-addCourseMarker();
+const configurationLocationWatch = () => {
+  if (navigator.geolocation) {
+    // 위치가 이동될때마다 실행된다.
+    navigator.geolocation.watchPosition((position) => {
+      userLatitude = position.coords.latitude;
+      userLongitude = position.coords.longitude;
+
+      if (!isMapDrawn) {
+        drawMap(userLatitude, userLongitude);
+        isMapDrawn = true;
+      }
+    })
+  }
+};
+
+
+
+
+configurationLocationWatch();
