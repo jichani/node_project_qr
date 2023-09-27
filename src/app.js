@@ -1,3 +1,7 @@
+import "dotenv/config";
+// async-await을 사용하기 위한 문법
+import "regenerator-runtime";
+
 import express from "express";
 import viewRouter from "./router/viewRouter";
 import apiRouter from "./router/apiRouter";

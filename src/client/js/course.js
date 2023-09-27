@@ -5,6 +5,11 @@ let isMapDrawn = false;
 let userLatitude;
 let userLongitude;
 
+// TODO 추후 사라질 수 있음
+let courseListInfo = [];
+
+
+
 // console.log(locationMap);
 
 // 지도 그리는 함수
@@ -35,8 +40,8 @@ const addUserMarker = () => {
 }
 
 // 해당 위치로 지도를 이동한다.
-const panTo = (lat, long) => {
-  map.panTo(new kakao.maps.LatLng(lat, long));
+const panTo = (latitude, longitude) => {
+  map.panTo(new kakao.maps.LatLng(latitude, longitude));
 }
 
 // 코스 마커 그리기
@@ -79,4 +84,45 @@ const configurationLocationWatch = () => {
   }
 };
 
-configurationLocationWatch();
+const makeNavigationHtml = () => {
+  const courseWrap = document.getElementById("course-wrap");
+  console.log(courseWrap);
+  let html = "";
+
+  for (let i = 0; i < courseListInfo.length; i++) {
+    html += `<li class="course">`;
+    if (courseListInfo[i].users_course_id) {
+      html += `<div class="mark-wrap"><img src="/file/complete.png" /></div>`
+    }
+    html += ` <p>${courseListInfo[i].course_name}</p>`;
+    html += `<li>`
+  }
+
+  html += `<li id="myPosition" class="course on">나의 위치</li>`
+  console.log(html);
+  courseWrap.innerHTML = html;
+}
+
+// 코스 정보 받아 온 다음에 할일
+const afterGetCourseList = () => {
+  makeNavigationHtml();
+  configurationLocationWatch();
+}
+
+// 백엔드 서버로 코스 정보 요청
+const getCourseListFetch = async () => {
+  const response = await fetch("/api/courses");
+
+  if (response.status === 200) {
+    console.log("getCourseList api 연동 성공");
+
+    const result = await response.json();
+    courseListInfo = result;
+    afterGetCourseList();
+
+  } else {
+    console.log("getCourseList api 연동 에러")
+  }
+};
+
+getCourseListFetch();
