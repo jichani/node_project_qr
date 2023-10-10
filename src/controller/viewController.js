@@ -22,7 +22,7 @@ export const profileViewController = (req, res) => {
 };
 
 export const joinViewController = (req, res) => {
-  res.render("joinForm");
+  res.render("join");
 };
 
 export const loginViewController = (req, res) => {
