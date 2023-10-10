@@ -12,8 +12,12 @@ const app = express();
 
 // express에게 ejs를 사용할 것이라고 선언
 app.set("view engine", "ejs");
+
 // 위치는 절대 주소를 지정하고 파일 위치를 잡는다.
 app.set("views", process.cwd() + "/src/client/html");
+
+// json 데이터 파싱 미들웨어
+app.use(express.json());
 
 app.use("/css", express.static("src/client/css"));
 app.use("/js", express.static("src/client/js"));
