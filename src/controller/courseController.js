@@ -27,13 +27,13 @@ export const qrCheck = async (request, response) => {
   const QUERY1 = `SELECT * FROM course WHERE course_qr = ?`
 
   const course = await db.execute(QUERY1, [qrInfoData.qrCode]).then((result) => result[0][0]);
-  if (!course) return response.status(400).json({ status: "not qrCode" });
+  if (!course) return response.status(400).json({ status: "올바른 qr 코드가 아닙니다." });
 
   // 검증코드 2: 해당유저 이 코스에 방문한적이 있는지
   const QUERY2 = `SELECT * FROM users_course WHERE user_id = ? AND course_id = ?`
   const userVisited = await db.execute(QUERY2, [userId, course.course_id]).then((result) => result[0][0]);
 
-  if (userVisited) return response.status(400).json({ status: "already visited" });
+  if (userVisited) return response.status(400).json({ status: "이미 방문한 장소입니다." });
 
   console.log("성공")
 
@@ -41,7 +41,7 @@ export const qrCheck = async (request, response) => {
   // dist m로 나옴
   const dist = calculatorDistance(qrInfoData.latitude, qrInfoData.longitude, course.latitude, course.longitude)
 
-  if (dist > 100) return response.status(400).json({ status: "distance over" });
+  if (dist > 100) return response.status(400).json({ status: "거리가 너무 멉니다." });
 
   // 방문완료 - 데이터베이스에 추가
   const QUERY3 = `INSERT INTO users_course (user_id, course_id) VALUES (?,?)`

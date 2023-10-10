@@ -51,6 +51,17 @@ const courseCheckFetch = async (qrCode) => {
       longitude: coords.longitude,
     })
   })
+  const result = await response.json();
+  console.log(result);
+  if (response.status === 201) {
+    msgAlert("center", "방문 완료", "success");
+    setTimeout(() => {
+      window.location.href = "/course";
+    }, 2000);
+  } else {
+    msgAlert("center", result.status, "error");
+  }
+  setTimeout(startScane, 3000)
 }
 
 const startScane = () => {

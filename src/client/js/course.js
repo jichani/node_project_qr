@@ -123,7 +123,7 @@ const configurationLocationWatch = () => {
 
 const makeNavigationHtml = () => {
   const courseWrap = document.getElementById("course-wrap");
-  console.log(courseWrap);
+  // console.log(courseWrap);
   let html = "";
 
   for (let i = 0; i < courseListInfo.length; i++) {
@@ -136,7 +136,7 @@ const makeNavigationHtml = () => {
   }
 
   html += `<li id="myPosition" class="course on" onclick="clickCourseList(event, 0)">나의 위치</li>`
-  console.log(html);
+  // console.log(html);
   courseWrap.innerHTML = html;
 }
 
@@ -151,7 +151,7 @@ const getCourseListFetch = async () => {
   const response = await fetch("/api/courses");
 
   if (response.status === 200) {
-    console.log("getCourseList api 연동 성공");
+    // console.log("getCourseList api 연동 성공");
 
     const result = await response.json();
     courseListInfo = result;
