@@ -18,7 +18,7 @@ export const qrViewController = (req, res) => {
 };
 
 export const profileViewController = (req, res) => {
-  res.render("users");
+  res.render("profile");
 };
 
 export const joinViewController = (req, res) => {

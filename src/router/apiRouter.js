@@ -3,7 +3,7 @@
 
 import express from "express";
 import { getCourseList, qrCheck } from "../controller/courseController";
-import { join, login } from "../controller/userController";
+import { authMe, join, login } from "../controller/userController";
 import { handleKakaoLogin, isAuth } from "../middleware/auth";
 import passport from "passport";
 
@@ -42,5 +42,6 @@ apiRouter.get("/kakao/callback", (request, response) => {
   })(request, response);
 });
 
+apiRouter.post("/token/check", isAuth, authMe);
 
 export default apiRouter;

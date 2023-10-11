@@ -59,3 +59,8 @@ export const login = async (request, response) => {
   // console.log(accessToken);
   return response.status(200).json({ accessToken: accessToken });
 };
+
+export const authMe = async (request, response) => {
+  const user = request.user;
+  return response.status(200).json(user);
+};
