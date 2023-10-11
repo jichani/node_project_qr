@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import db from "../config/db";
 
+// 회원가입
 export const join = async (request, response) => {
   const joinData = request.body;
 
@@ -28,3 +30,32 @@ export const join = async (request, response) => {
 
   response.status(201).json({ status: "success" });
 }
+
+// 로그인
+export const login = async (request, response) => {
+  const loginData = request.body; //userId, userPassword
+
+  // 1. 들어온 이메일에 해당하는 유저가 있는지 확인
+  const QUERY1 = `SELECT * FROM users WHERE user_email = ?`;
+  const user = await db.execute(QUERY1, [loginData.userId]).then((result) => result[0][0]);
+
+  if (!user) {
+    return response.status(400).json({ status: "아이디, 비밀번호 확인!" });
+  };
+
+  // console.log(user);
+  // 2. 비밀번호 확인 - DB 비밀번호(암호화된 값 = bcrypt), 프론트에서 보낸 비밀번호(1234)
+  const isPasswordRight = await bcrypt.compare(loginData.userPassword, user.user_password);
+  // True, False
+  if (!isPasswordRight) {
+    // 비밀번호가 틀렸을 때 들어옴
+    return response.status(400).json({ status: "아이디, 비밀번호 확인!!" });
+  }
+
+  // 3. json web Token을 만들어야한다. -> 로그인 유지
+  // 3개. 넣으실값, 시크릿값, 만료일
+  const accessToken = jwt.sign({ id: user.user_id }, process.env.SECRET_KEY, { expiresIn: "30d" });
+
+  console.log(accessToken);
+  return { accessToken: accessToken };
+};

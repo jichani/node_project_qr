@@ -3,7 +3,7 @@
 
 import express from "express";
 import { getCourseList, qrCheck } from "../controller/courseController";
-import { join } from "../controller/userController";
+import { join, login } from "../controller/userController";
 
 const apiRouter = express.Router();
 
@@ -12,5 +12,6 @@ apiRouter.post("/courses", qrCheck);
 
 // 회원가입
 apiRouter.post("/join", join);
+apiRouter.post("/login", login);
 
 export default apiRouter;
