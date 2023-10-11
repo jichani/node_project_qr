@@ -12,16 +12,16 @@ export const getCourseList = async (request, response) => {
     ON c.course_id = uc.course_id
     AND uc.user_id = ?`
 
-  const courseList = await db.execute(QUERY, [1]).then((result) => result[0]);
+  const courseList = await db.execute(QUERY, [userId]).then((result) => result[0]);
 
   response.json(courseList);
 }
 
 export const qrCheck = async (request, response) => {
-  const userId = 1;
+  const userId = request.user.user_id;
 
   const qrInfoData = request.body;
-  console.log(qrInfoData);
+  // console.log(qrInfoData);
 
   // 검증코드 1: 들어온 qr 코드에 해당하는 코스가 있는지 여부
   const QUERY1 = `SELECT * FROM course WHERE course_qr = ?`

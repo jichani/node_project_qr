@@ -1,5 +1,6 @@
 // 들어올 때 로그인 체크하려면 TODO 서버에 API TOKEN -> 유효한 토큰인지 체크;
 
+
 const msgAlert = (position, message, type) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -17,7 +18,10 @@ const getCurrentPosition = () => {
 }
 
 const courseCheckFetch = async (qrCode) => {
-  // TODO 로그인 여부체크
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    window.location.href = "/login?error=need_login";
+  }
 
   // qrCode 올바른 데이터인지
   if (!qrCode) {
@@ -44,6 +48,7 @@ const courseCheckFetch = async (qrCode) => {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       // TODO 로그인 토큰
+      Authorization: `Bearer ${accessToken}`
     },
     body: JSON.stringify({
       qrCode: qrCode,
@@ -51,17 +56,23 @@ const courseCheckFetch = async (qrCode) => {
       longitude: coords.longitude,
     })
   })
+
   const result = await response.json();
-  console.log(result);
+
   if (response.status === 201) {
     msgAlert("center", "방문 완료", "success");
-    setTimeout(() => {
+    return setTimeout(() => {
       window.location.href = "/course";
+    }, 2000);
+  } else if (response.status === 401) {
+    msgAlert("center", result.status, "error");
+    return setTimeout(() => {
+      window.location.href = "/login?error=need_login";
     }, 2000);
   } else {
     msgAlert("center", result.status, "error");
   }
-  setTimeout(startScane, 3000)
+  setTimeout(startScane, 3000);
 }
 
 const startScane = () => {

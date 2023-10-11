@@ -13,6 +13,24 @@ const msgAlert = (position, message, type) => {
   Toast.fire({ title: message, icon: type })
 };
 
+// 정규식 작성 코드
+const getParameterByName = (name, url) => {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+const errorMessage = getParameterByName("error");
+console.log(errorMessage);
+
+if (errorMessage === "need_login") {
+  msgAlert("bottom", "인증 만료", "error");
+}
+
 const loginFetch = async () => {
   const userId = userIdInput.value;
   const userPassword = userPasswordInput.value;
