@@ -56,6 +56,6 @@ export const login = async (request, response) => {
   // 3개. 넣으실값, 시크릿값, 만료일
   const accessToken = jwt.sign({ id: user.user_id }, process.env.SECRET_KEY, { expiresIn: "30d" });
 
-  console.log(accessToken);
-  return { accessToken: accessToken };
+  // console.log(accessToken);
+  return response.status(200).json({ accessToken: accessToken });
 };

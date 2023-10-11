@@ -34,7 +34,18 @@ const loginFetch = async () => {
     })
   })
   const result = await response.json();
+
   console.log(result);
+
+  if (response.status === 200) {
+    localStorage.setItem("accessToken", result.accessToken);
+    msgAlert("center", "로그인 성공", "success");
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 2000);
+  } else {
+    msgAlert("bottom", result.status, "error");
+  }
 };
 
 loginBtn.addEventListener('click', loginFetch);
