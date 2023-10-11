@@ -26,5 +26,5 @@ export const joinViewController = (req, res) => {
 };
 
 export const loginViewController = (req, res) => {
-  res.render("loginForm");
+  res.render("login");
 };
