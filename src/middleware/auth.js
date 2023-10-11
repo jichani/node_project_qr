@@ -41,3 +41,31 @@ export const isAuth = async (request, response, next) => {
     }
   )
 }
+
+export const handleKakaoLogin = async (accessToken, refreshToken, profile, done) => {
+
+  const provider = profile.provider;
+  const id = profile.id;
+  const username = profile.username;
+  const profileImage = profile._json.properties.profile_image;
+
+  const QUERY1 = `SELECT * FROM users WHERE user_email = ? AND user_provider = ?`;
+  const user = await db.execute(QUERY1, [id, provider]).then((result) => result[0][0]);
+  // console.log(user);
+
+  // 첫 접속이면 회원가입 후 로그인
+  if (!user) {
+    const QUERY2 = `
+    INSERT INTO users
+      (user_email, user_name, user_img, user_provider)
+    VALUES
+      (?, ?, ?, ?)`
+    const data = await db.execute(QUERY2, [id, username, profileImage, provider])
+      .then((result) => result[0]);
+    // console.log(data);
+    user = { user_id: data.insertId };
+  }
+
+  // 두번째 접속부터는 로그인만 (회원가입이 무조건 된 상태)
+  return done(null, user);
+}
